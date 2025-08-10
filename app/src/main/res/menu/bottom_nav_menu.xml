@@ -1,0 +1,17 @@
+<!-- res/menu/bottom_nav_menu.xml -->
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/scanFragment"
+        android:icon="@drawable/ic_scan"
+        android:title="Scan" />
+
+    <item
+        android:id="@+id/organizeFragment"
+        android:icon="@drawable/ic_organize"
+        android:title="Organize" />
+
+    <item
+        android:id="@+id/settingsFragment"
+        android:icon="@drawable/icon_settings"
+        android:title="Settings" />
+</menu>
