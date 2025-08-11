@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@drawable/bg_bottom_sheet"
+    android:gravity="center"
+    android:paddingStart="@dimen/_12sdp"
+    android:paddingEnd="@dimen/_12sdp"
+    android:paddingTop="@dimen/_10sdp"
+    android:layout_gravity="bottom">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="12dp"
+        android:gravity="center_vertical"
+        android:clickable="true"
+        android:focusable="true">
+
+        <ImageView
+            android:id="@+id/item_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icon_feedback"
+            android:contentDescription="Delete" />
+
+        <TextView
+            android:id="@+id/item_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="10th Marksheet"
+            android:textSize="@dimen/_15ssp"
+            android:textColor="@android:color/black"
+            android:layout_marginStart="@dimen/_14sdp"/>
+    </LinearLayout>
+    
+    <com.google.android.material.divider.MaterialDivider
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_9sdp"
+        />
+
+
+    <LinearLayout
+        android:id="@+id/item_share"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="@dimen/_12sdp"
+        android:gravity="center_vertical"
+        android:clickable="true"
+        android:focusable="true">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icon_share_person"
+            android:contentDescription="Share" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Share"
+            android:textSize="@dimen/_14ssp"
+            android:textColor="@color/text_color"
+            android:layout_marginStart="@dimen/_14sdp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/item_star"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="@dimen/_12sdp"
+        android:gravity="center_vertical"
+        android:clickable="true"
+        android:focusable="true">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icon_star"
+            android:contentDescription="Download" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Add to starred"
+            android:textSize="@dimen/_14ssp"
+            android:textColor="@color/text_color"
+            android:layout_marginStart="@dimen/_14sdp"/>
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/item_rename"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="@dimen/_12sdp"
+        android:gravity="center_vertical"
+        android:clickable="true"
+        android:focusable="true">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icon_rename"
+            android:contentDescription="Share" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Rename"
+            android:textSize="@dimen/_14ssp"
+            android:textColor="@color/text_color"
+            android:layout_marginStart="@dimen/_14sdp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/item_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="@dimen/_12sdp"
+        android:gravity="center_vertical"
+        android:clickable="true"
+        android:focusable="true">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icon_info"
+            android:contentDescription="Share" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Details and info"
+            android:textSize="@dimen/_14ssp"
+            android:textColor="@color/text_color"
+            android:layout_marginStart="@dimen/_14sdp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/item_download"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="@dimen/_12sdp"
+        android:gravity="center_vertical"
+        android:clickable="true"
+        android:focusable="true">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icon_download"
+            android:contentDescription="Download" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Download"
+            android:textSize="@dimen/_14ssp"
+            android:textColor="@color/text_color"
+            android:layout_marginStart="@dimen/_14sdp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/item_delete"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="@dimen/_14sdp"
+        android:gravity="center_vertical"
+        android:clickable="true"
+        android:focusable="true">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icon_bin"
+            android:contentDescription="Delete" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Remove"
+            android:textSize="@dimen/_14ssp"
+            android:textColor="@color/text_color"
+            android:layout_marginStart="@dimen/_14sdp"/>
+    </LinearLayout>
+
+
+
+</LinearLayout>

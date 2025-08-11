@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+            <item
+                android:id="@+id/action_recent"
+                android:title="Recent"
+                android:icon="@drawable/icon_recent"
+                />
+            <item
+                android:id="@+id/action_offline"
+                android:icon="@drawable/icon_cloudoff"
+                android:title="Offline" />
+            <item
+                android:id="@+id/action_trash"
+                android:icon="@drawable/icon_bin"
+                android:title="Bin" />
+            <item
+                android:id="@+id/action_settings"
+                android:icon="@drawable/icon_settings"
+                android:title="Settings" />
+
+    <item
+        android:id="@+id/labels_item"
+        android:title="other">
+        <menu>
+            <item
+                android:id="@+id/action_help"
+                android:title="Help &amp; feedback"
+                android:icon="@drawable/icon_feedback" />
+            <item
+                android:id="@+id/action_logout"
+                android:icon="@drawable/icon_logout"
+                android:title="Logout" />
+        </menu>
+    </item>
+
+
+</menu>

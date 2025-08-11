@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/loginFragment"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
+
+
+    <EditText
+        android:id="@+id/loginMail"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_35sdp"
+        android:ems="10"
+        android:hint="Email"
+        android:layout_marginRight="@dimen/_16sdp"
+        android:layout_marginLeft="@dimen/_16sdp"
+        android:layout_marginBottom="@dimen/_16sdp"
+        android:layout_marginTop="@dimen/_24sdp"
+        android:inputType="textEmailAddress"
+        android:paddingStart="15dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tilte_text" />
+
+    <EditText
+        android:id="@+id/loginPass"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_35sdp"
+        android:layout_margin="@dimen/_16sdp"
+        android:ems="10"
+        android:hint="Password"
+        android:inputType="textPassword"
+        android:paddingStart="15dp"
+        app:layout_constraintEnd_toEndOf="@+id/loginMail"
+        app:layout_constraintStart_toStartOf="@id/loginMail"
+        app:layout_constraintTop_toBottomOf="@+id/loginMail" />
+
+    <TextView
+        android:id="@+id/forgot_pass"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/_10sdp"
+        android:layout_marginTop="@dimen/_12sdp"
+        android:layout_marginRight="@dimen/_10sdp"
+        android:gravity="end"
+        android:textSize="@dimen/_13sdp"
+        android:text="Forgot Password?"
+        android:paddingEnd="@dimen/_10sdp"
+        android:paddingStart="@dimen/_10sdp"
+        android:textColor="#818589"
+        app:layout_constraintLeft_toLeftOf="@id/loginPass"
+        app:layout_constraintRight_toRightOf="@id/loginPass"
+        app:layout_constraintTop_toBottomOf="@id/loginPass" />
+
+
+    <com.github.leandroborgesferreira.loadingbutton.customViews.CircularProgressButton
+        android:id="@+id/login_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_26sdp"
+        android:layout_marginEnd="@dimen/_16sdp"
+        android:layout_marginStart="@dimen/_16sdp"
+        android:text="Login"
+        android:stateListAnimator="@null"
+        android:textColor="@color/white"
+        app:spinning_bar_color="@color/white"
+        app:finalCornerAngle="@dimen/_120sdp"
+        app:initialCornerAngle="@dimen/_120sdp"
+        app:spinning_bar_padding="@dimen/_5sdp"
+        android:background="@drawable/animation_btn_bg"
+        app:layout_constraintLeft_toLeftOf="@id/forgot_pass"
+        app:layout_constraintRight_toRightOf="@id/forgot_pass"
+        app:layout_constraintTop_toBottomOf="@id/forgot_pass" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/_10sdp"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:gravity="center"
+        android:text="Don't have an account?"
+        app:layout_constraintEnd_toStartOf="@+id/txt_signup"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/login_btn" />
+
+    <TextView
+        android:id="@+id/txt_signup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="@dimen/_10sdp"
+        android:layout_marginLeft="@dimen/_4sdp"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:gravity="center"
+        android:text="sign Up"
+        android:textColor="@color/themeColor"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textView"
+        app:layout_constraintTop_toBottomOf="@id/login_btn" />
+
+
+    <TextView
+        android:id="@+id/tilte_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_22sdp"
+        android:layout_marginTop="@dimen/_70sdp"
+        android:text="Login"
+        android:fontFamily="@font/splash_screen_font"
+        android:textSize="@dimen/_30sdp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
