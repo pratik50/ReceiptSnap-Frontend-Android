@@ -109,5 +109,6 @@ dependencies {
     //Loading Button
     implementation(libs.loading.button.android)
 
-
+    //AnimationBottomBar
+    implementation("nl.joery.animatedbottombar:library:1.1.0")
 }

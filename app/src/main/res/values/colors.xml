@@ -11,4 +11,5 @@
     <color name="primary_text">#2A0F3A</color>
     <color name="secondary_text">#6B4F7A</color>
     <color name="hint_text">#CFC7CF</color>
+    <color name="screen_bg">#f2f2f2</color>
 </resources>

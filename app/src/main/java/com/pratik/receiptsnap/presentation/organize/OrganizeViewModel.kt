@@ -11,6 +11,7 @@ import com.pratik.receiptsnap.presentation.organize.state.UploadState
 import com.pratik.receiptsnap.repository.FileRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import jakarta.inject.Inject
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
@@ -32,12 +33,12 @@ class OrganizeViewModel @Inject constructor(
     val shareState: LiveData<String?> = _shareState
 
     fun loadFiles() {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             try {
                 val response = fileRepository.getFiles()
                 _files.postValue(response)
             } catch (e: Exception) {
-                Timber.Forest.e(e, "Error loading files")
+                Timber.e(e, "Error loading files")
             }
         }
     }

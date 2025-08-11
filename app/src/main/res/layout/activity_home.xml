@@ -5,7 +5,6 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
     tools:context=".HomeActivity">
 
     <androidx.fragment.app.FragmentContainerView
@@ -20,16 +19,25 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:navGraph="@navigation/nav_graph" />
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView
+    <nl.joery.animatedbottombar.AnimatedBottomBar
         android:id="@+id/bottom_Bar"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="0dp"
         android:layout_marginEnd="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        android:elevation="@dimen/_10sdp"
+        android:elevation="@dimen/_23sdp"
         android:background="@drawable/bottom_nav_bg"
-        app:menu="@menu/bottom_nav_menu" />
+        app:abb_selectedTabType="text"
+        app:abb_indicatorAppearance="round"
+        app:abb_indicatorMargin="@dimen/_15sdp"
+        app:abb_indicatorHeight="@dimen/_3sdp"
+        app:abb_tabs="@menu/bottom_nav_menu"
+        app:abb_selectedIndex="1"
+        app:abb_tabColor="@color/black"
+        app:abb_tabColorSelected="@color/themeColor"
+        app:abb_indicatorColor="@color/themeColor"
+        />
 </androidx.constraintlayout.widget.ConstraintLayout>
