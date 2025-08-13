@@ -41,6 +41,14 @@ class OrganizeFragment : Fragment() {
         viewmodel.files.observe(viewLifecycleOwner) { response ->
             epoxyController.files = response.unfolderedFiles
             binding.swipeRefreshLayout.isRefreshing = false
+
+            if (response.unfolderedFiles.isNullOrEmpty()) {
+                binding.epoxyRecyclerView.visibility = View.GONE
+                binding.noFilesTxt.visibility = View.VISIBLE
+            } else {
+                binding.epoxyRecyclerView.visibility = View.VISIBLE
+                binding.noFilesTxt.visibility = View.GONE
+            }
         }
 
         binding.apply {

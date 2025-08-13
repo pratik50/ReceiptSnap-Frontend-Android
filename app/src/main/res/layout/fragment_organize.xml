@@ -8,10 +8,8 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     android:layout_marginBottom="?attr/actionBarSize"
-    tools:openDrawer="start"
     android:background="@color/white"
     tools:context=".presentation.organize.OrganizeFragment">
-
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
@@ -72,20 +70,54 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    tools:listitem="@layout/item_file" />
+                    tools:listitem="@layout/item_file"
+                    android:visibility="visible"
+                    />
 
             </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+            <LinearLayout
+                android:id="@+id/no_files_txt"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:gravity="center_horizontal"
+                android:visibility="gone"
+                >
+                <ImageView
+                    android:id="@+id/empty_img_txt"
+                    android:layout_width="@dimen/_70sdp"
+                    android:layout_height="@dimen/_70sdp"
+                    android:layout_marginTop="@dimen/_130sdp"
+                    android:src="@drawable/icon_folder"
+                    />
+
+                <TextView
+                    android:id="@+id/empty_txt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:clipToPadding="false"
+                    android:text="Scan or Upload your first file\nto your personal cloud"
+                    android:gravity="center"
+                    android:textColor="@color/themeColor"
+                    android:textStyle="bold"
+                    android:fontFamily="@font/splash_screen_font"
+                    android:textSize="@dimen/_15ssp"
+                    />
+            </LinearLayout>
+
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 
-<!--        &lt;!&ndash; NavigationView Drawer &ndash;&gt;-->
-<!--        <com.google.android.material.navigation.NavigationView-->
-<!--            android:id="@+id/navigationView"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="match_parent"-->
-<!--            android:layout_gravity="start"-->
-<!--            android:background="@color/white"-->
-<!--            app:menu="@menu/navigation_drawer_menu"-->
-<!--            app:headerLayout="@layout/header_navigation_drawer" />-->
+        <!-- NavigationView Drawer -->
+        <com.google.android.material.navigation.NavigationView
+            android:id="@+id/navigationView"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
+            android:background="@color/white"
+            app:menu="@menu/navigation_drawer_menu"
+            app:headerLayout="@layout/header_navigation_drawer" />
 </androidx.drawerlayout.widget.DrawerLayout>

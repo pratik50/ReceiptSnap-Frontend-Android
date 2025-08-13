@@ -1,11 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <network-security-config>
     <!-- Applies globally -->
-    <base-config cleartextTrafficPermitted="true" />
+    <base-config cleartextTrafficPermitted="true">
+        <trust-anchors>
+            <certificates src="system" />
+        </trust-anchors>
+    </base-config>
 
-    <!-- Optional domain-specific config -->
+    <!-- Allow all domains and IPs -->
     <domain-config cleartextTrafficPermitted="true">
-        <domain includeSubdomains="true">192.168.10.35</domain>
+        <domain includeSubdomains="true">localhost</domain>
+        <domain includeSubdomains="true">0.0.0.0</domain>
+        <domain includeSubdomains="true">127.0.0.1</domain>
+        <domain includeSubdomains="true">192.168.0.0</domain>
+        <domain includeSubdomains="true">192.168.1.0</domain>
+        <domain includeSubdomains="true">*</domain> <!-- wildcard for all -->
     </domain-config>
-
 </network-security-config>
