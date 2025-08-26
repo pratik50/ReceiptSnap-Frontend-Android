@@ -18,6 +18,12 @@
         tools:layout="@layout/fragment_organize" />
 
     <fragment
+        android:id="@+id/filesFragment"
+        android:name="com.pratik.receiptsnap.presentation.files.FilesFragment"
+        android:label="files"
+        tools:layout="@layout/fragment_files" />
+
+    <fragment
         android:id="@+id/settingsFragment"
         android:name="com.pratik.receiptsnap.presentation.settings.SettingsFragment"
         android:label="Settings"

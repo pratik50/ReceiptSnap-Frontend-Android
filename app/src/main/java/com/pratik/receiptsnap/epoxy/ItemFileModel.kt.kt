@@ -7,7 +7,7 @@ import android.widget.TextView
 import com.airbnb.epoxy.EpoxyHolder
 import com.airbnb.epoxy.EpoxyModelWithHolder
 import com.pratik.receiptsnap.R
-import com.pratik.receiptsnap.presentation.organize.state.FileItemClickListener
+import com.pratik.receiptsnap.presentation.files.state.FileItemClickListener
 
 
 class ItemFileModel(

@@ -1,4 +1,4 @@
-package com.pratik.receiptsnap.presentation.organize.state
+package com.pratik.receiptsnap.presentation.files.state
 
 interface FileItemClickListener {
     fun onMoreClick(fileId: String)

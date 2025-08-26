@@ -1,4 +1,4 @@
-package com.pratik.receiptsnap.presentation.organize
+package com.pratik.receiptsnap.presentation.files
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,27 +9,28 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.pratik.receiptsnap.R
-import com.pratik.receiptsnap.databinding.FragmentOrganizeBinding
+import com.pratik.receiptsnap.databinding.FragmentFilesBinding
+import com.pratik.receiptsnap.presentation.organize.OrganizeFragmentDirections
 import com.pratik.receiptsnap.presentation.files.state.FileItemClickListener
 import dagger.hilt.android.AndroidEntryPoint
+import kotlin.getValue
 
 @AndroidEntryPoint
-class OrganizeFragment : Fragment() {
+class FilesFragment : Fragment() {
 
-    private var _binding: FragmentOrganizeBinding? = null
+    private var _binding: FragmentFilesBinding?= null
     private val binding get() = _binding!!
-    private val viewmodel: OrganizeViewModel by viewModels()
-    private lateinit var epoxyController: OrganizeEpoxyController
+    private val viewmodel: FilesViewModel by viewModels()
+    private lateinit var epoxyController: FilesEpoxyController
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentOrganizeBinding.inflate(inflater, container, false)
+        // Inflate the layout for this fragment
+        _binding = FragmentFilesBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -37,25 +38,20 @@ class OrganizeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         //Epoxy Initialization
-        epoxyController = OrganizeEpoxyController()
-        val layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
-        layoutManager.gapStrategy = StaggeredGridLayoutManager.GAP_HANDLING_MOVE_ITEMS_BETWEEN_SPANS
-        binding.epoxyRecyclerView.layoutManager = layoutManager
+        epoxyController = FilesEpoxyController()
         binding.epoxyRecyclerView.setController(epoxyController)
 
         // Start loading shimmer
         showLoadingState()
-        viewmodel.loadFolders()
+        viewmodel.loadFiles()
 
-        viewmodel.folders.observe(viewLifecycleOwner) { response ->
-            epoxyController.folders = response.folders!!
+        viewmodel.files.observe(viewLifecycleOwner) { response ->
             binding.swipeRefreshLayout.isRefreshing = false
-            binding.shimmerLayout.stopShimmer()
 
-            if (response.folders.isEmpty()) {
+            if (response.files?.isEmpty() ?: true) {
                 showEmptyState()
             } else {
-                epoxyController.folders = response.folders
+                epoxyController.files = response.files
                 showDataState()
             }
         }
@@ -69,7 +65,7 @@ class OrganizeFragment : Fragment() {
 
             // Swipe to refresh listener
             swipeRefreshLayout.setOnRefreshListener {
-                viewmodel.loadFolders()
+                viewmodel.loadFiles()
             }
 
             // Navigation drawer item listener
@@ -182,12 +178,14 @@ class OrganizeFragment : Fragment() {
     }
 
     private fun showDataState() {
+        binding.shimmerLayout.stopShimmer()
         binding.shimmerLayout.visibility = View.GONE
         binding.epoxyRecyclerView.visibility = View.VISIBLE
         binding.noFilesTxt.visibility = View.GONE
     }
 
     private fun showEmptyState() {
+        binding.shimmerLayout.stopShimmer()
         binding.shimmerLayout.visibility = View.GONE
         binding.epoxyRecyclerView.visibility = View.GONE
         binding.noFilesTxt.visibility = View.VISIBLE

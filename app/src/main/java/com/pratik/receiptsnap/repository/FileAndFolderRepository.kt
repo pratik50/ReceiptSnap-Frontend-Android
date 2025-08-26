@@ -4,7 +4,7 @@ import android.content.Context
 import android.net.Uri
 import android.provider.OpenableColumns
 import com.pratik.receiptsnap.data.remote.FileApi
-import com.pratik.receiptsnap.data.remote.dto.FilesResponse
+import com.pratik.receiptsnap.data.remote.dto.FilesAndFolderResponse
 import com.pratik.receiptsnap.data.remote.dto.UploadFileResponse
 import dagger.hilt.android.qualifiers.ApplicationContext
 import jakarta.inject.Inject
@@ -16,13 +16,17 @@ import okhttp3.RequestBody.Companion.toRequestBody
 import timber.log.Timber
 import java.io.IOException
 
-class FileRepository @Inject constructor(
+class FileAndFolderRepository @Inject constructor(
     val fileApi: FileApi,
     @ApplicationContext private val context: Context
 ) {
 
-    suspend fun getFiles(): FilesResponse {
+    suspend fun getFiles(): FilesAndFolderResponse {
         return fileApi.getFiles()
+    }
+
+    suspend fun getFolders(): FilesAndFolderResponse {
+        return fileApi.getFolders()
     }
 
     suspend fun uploadFile(file: MultipartBody.Part): UploadFileResponse {

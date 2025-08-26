@@ -2,33 +2,51 @@ package com.pratik.receiptsnap.presentation.organize
 
 import com.airbnb.epoxy.EpoxyController
 import com.pratik.receiptsnap.epoxy.ItemFileModel
+import com.pratik.receiptsnap.epoxy.ItemFolderModel
 import com.pratik.receiptsnap.model.FileItem
-import com.pratik.receiptsnap.presentation.organize.state.FileItemClickListener
+import com.pratik.receiptsnap.model.FolderItem
+import com.pratik.receiptsnap.presentation.files.state.FileItemClickListener
+import kotlin.collections.forEach
 
 class OrganizeEpoxyController : EpoxyController() {
 
     var clickListener: FileItemClickListener? = null
 
-    var files: List<FileItem> = emptyList()
+    var folders: List<FolderItem> = emptyList()
         set(value) {
             field = value
             requestModelBuild()
         }
 
     override fun buildModels() {
-        files.forEach { file ->
-            ItemFileModel(
-                fileNameValue = file.name,
-                fileSizeValue = if (file.size < 1024 * 1024) {
-                    "${file.size / 1024} KB"
-                } else {
-                    "%.2f MB".format(file.size / 1024f / 1024f)
-                },
-                fileUrl = file.url,
-                fileType = file.type,
-                fileId = file.id,
+        folders.forEach { folder ->
+            ItemFolderModel(
+                folderName = folder.name,
+                folderId = folder.id,
                 clickListener = clickListener
-            ).id(file.url).addTo(this)
+            ).id(folder.id).addTo(this)
         }
     }
 }
+
+//
+//class FilesEpoxyController : EpoxyController() {
+//
+//    var clickListener: FileItemClickListener? = null
+//
+//    var folders: List<FolderItem> = emptyList()
+//        set(value) {
+//            field = value
+//            requestModelBuild()
+//        }
+//
+//    override fun buildModels() {
+//        folders.forEach { folder ->
+//            ItemFolderModel(
+//                folderName = folder.name,
+//                folderId = folder.id,
+//                clickListener = clickListener
+//            ).id(folder.id).addTo(this)
+//        }
+//    }
+//}

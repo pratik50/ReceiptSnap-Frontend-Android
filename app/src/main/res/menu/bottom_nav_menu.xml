@@ -11,6 +11,11 @@
         android:title="Organize" />
 
     <item
+        android:id="@+id/filesFragment"
+        android:icon="@drawable/icon_folder"
+        android:title="Files" />
+
+    <item
         android:id="@+id/settingsFragment"
         android:icon="@drawable/icon_settings"
         android:title="Settings" />

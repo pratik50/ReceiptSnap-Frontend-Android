@@ -17,7 +17,7 @@ class UserPreferences @Inject constructor(
     }
 
     fun saveToken(token: String) {
-        prefs.edit() { putString(TOKEN_KEY, token) }
+        prefs.edit { putString(TOKEN_KEY, token) }
     }
 
     fun getToken(): String? {
@@ -25,6 +25,6 @@ class UserPreferences @Inject constructor(
     }
 
     fun clearToken() {
-        prefs.edit() { clear() }
+        prefs.edit { clear() }
     }
 }

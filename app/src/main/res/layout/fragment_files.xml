@@ -8,10 +8,7 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     android:layout_marginBottom="?attr/actionBarSize"
-    android:background="@color/white"
-    android:layout_marginStart="@dimen/_2sdp"
-    android:layout_marginEnd="@dimen/_2sdp"
-    tools:context=".presentation.organize.OrganizeFragment">
+    android:background="@color/white">
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
@@ -125,7 +122,10 @@
                     android:orientation="vertical">
 
                     <!-- Multiple shimmer items -->
-                    <include layout="@layout/folder_shimmer_layout" />
+                    <include layout="@layout/file_shimmer_layout" />
+                    <include layout="@layout/file_shimmer_layout" />
+                    <include layout="@layout/file_shimmer_layout" />
+                    <include layout="@layout/file_shimmer_layout" />
                 </LinearLayout>
 
             </com.facebook.shimmer.ShimmerFrameLayout>
@@ -135,13 +135,13 @@
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 
-        <!-- NavigationView Drawer -->
-        <com.google.android.material.navigation.NavigationView
-            android:id="@+id/navigationView"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_gravity="start"
-            android:background="@color/white"
-            app:menu="@menu/navigation_drawer_menu"
-            app:headerLayout="@layout/header_navigation_drawer" />
+    <!-- NavigationView Drawer -->
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/navigationView"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:background="@color/white"
+        app:menu="@menu/navigation_drawer_menu"
+        app:headerLayout="@layout/header_navigation_drawer" />
 </androidx.drawerlayout.widget.DrawerLayout>

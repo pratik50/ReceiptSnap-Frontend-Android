@@ -73,6 +73,9 @@
         <action
             android:id="@+id/action_scanFragment_to_signupFragment"
             app:destination="@id/signupFragment" />
+        <action
+            android:id="@+id/action_scanFragment_to_filesFragment"
+            app:destination="@id/filesFragment" />
     </fragment>
 
     <!-- Organize -->
@@ -90,6 +93,9 @@
         <action
             android:id="@+id/action_organizeFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
+        <action
+            android:id="@+id/action_organizeFragment_to_filesFragment"
+            app:destination="@id/filesFragment" />
     </fragment>
 
     <!-- Settings -->
@@ -104,6 +110,9 @@
         <action
             android:id="@+id/action_settingsFragment_to_organizeFragment2"
             app:destination="@id/organizeFragment" />
+        <action
+            android:id="@+id/action_settingsFragment_to_filesFragment"
+            app:destination="@id/filesFragment" />
     </fragment>
 
     <!-- File Preview -->
@@ -121,6 +130,29 @@
         <action
             android:id="@+id/action_filePreviewFragment_to_organizeFragment"
             app:destination="@id/organizeFragment" />
+        <action
+            android:id="@+id/action_filePreviewFragment_to_filesFragment"
+            app:destination="@id/filesFragment" />
     </fragment>
+
+    <fragment
+        android:id="@+id/filesFragment"
+        android:name="com.pratik.receiptsnap.presentation.files.FilesFragment"
+        android:label="files"
+        tools:layout="@layout/fragment_files" >
+        <action
+            android:id="@+id/action_filesFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment" />
+        <action
+            android:id="@+id/action_filesFragment_to_scanFragment"
+            app:destination="@id/scanFragment" />
+        <action
+            android:id="@+id/action_filesFragment_to_organizeFragment"
+            app:destination="@id/organizeFragment" />
+        <action
+            android:id="@+id/action_filesFragment_to_filePreviewFragment"
+            app:destination="@id/filePreviewFragment" />
+    </fragment>
+
 
 </navigation>

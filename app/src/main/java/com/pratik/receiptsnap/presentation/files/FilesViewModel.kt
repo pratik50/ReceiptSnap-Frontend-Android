@@ -1,4 +1,4 @@
-package com.pratik.receiptsnap.presentation.organize
+package com.pratik.receiptsnap.presentation.files
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -15,12 +15,12 @@ import kotlinx.coroutines.launch
 import timber.log.Timber
 
 @HiltViewModel
-class OrganizeViewModel @Inject constructor(
+class FilesViewModel @Inject constructor(
     val fileAndFolderRepository: FileAndFolderRepository
 ): ViewModel() {
 
-    private val _folders = MutableLiveData<FilesAndFolderResponse>()
-    val folders: LiveData<FilesAndFolderResponse> = _folders
+    private val _files = MutableLiveData<FilesAndFolderResponse>()
+    val files: LiveData<FilesAndFolderResponse> = _files
 
     private val _deleteState = MutableLiveData<Event<Boolean>>()
     val deleteState: LiveData<Event<Boolean>> = _deleteState
@@ -28,11 +28,11 @@ class OrganizeViewModel @Inject constructor(
     private val _shareState = MutableLiveData<String?>()
     val shareState: LiveData<String?> = _shareState
 
-    fun loadFolders() {
+    fun loadFiles() {
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                val response = fileAndFolderRepository.getFolders()
-                _folders.postValue(response)
+                val response = fileAndFolderRepository.getFiles()
+                _files.postValue(response)
             } catch (e: Exception) {
                 Timber.e(e, "Error loading files")
             }
@@ -51,7 +51,7 @@ class OrganizeViewModel @Inject constructor(
             val success = fileAndFolderRepository.deleteFile(fileId)
             _deleteState.value = Event(success)
             if (success) {
-                loadFolders()
+                loadFiles()
             }
         }
     }

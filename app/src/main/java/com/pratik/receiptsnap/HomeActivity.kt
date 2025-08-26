@@ -32,7 +32,7 @@ class HomeActivity : AppCompatActivity() {
         val navController = navHostFragment.navController
 
         bottomBar.onTabSelected = { tab ->
-            val allowedTabs = setOf(R.id.scanFragment, R.id.organizeFragment, R.id.settingsFragment)
+            val allowedTabs = setOf(R.id.scanFragment, R.id.organizeFragment, R.id.filesFragment, R.id.settingsFragment)
             if (tab.id in allowedTabs && navController.currentDestination?.id != tab.id) {
                 try {
                     navController.navigate(tab.id, null, navOptions {

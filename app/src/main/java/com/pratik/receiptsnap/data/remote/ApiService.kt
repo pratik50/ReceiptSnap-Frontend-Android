@@ -1,7 +1,7 @@
 package com.pratik.receiptsnap.data.remote
 
 import com.pratik.receiptsnap.data.remote.dto.AuthResponse
-import com.pratik.receiptsnap.data.remote.dto.FilesResponse
+import com.pratik.receiptsnap.data.remote.dto.FilesAndFolderResponse
 import com.pratik.receiptsnap.data.remote.dto.LoginRequest
 import com.pratik.receiptsnap.data.remote.dto.SignupRequest
 import com.pratik.receiptsnap.data.remote.dto.UploadFileResponse
@@ -25,8 +25,11 @@ interface AuthApi {
 
 interface FileApi {
 
-    @GET("/api/files/dashboard")
-    suspend fun getFiles(): FilesResponse
+    @GET("/api/files/getAllFiles")
+    suspend fun getFiles(): FilesAndFolderResponse
+
+    @GET("/api/files/getAllFolders")
+    suspend fun getFolders(): FilesAndFolderResponse
 
     @Multipart
     @POST("/api/files/upload")

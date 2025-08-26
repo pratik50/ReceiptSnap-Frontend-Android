@@ -19,11 +19,9 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.pratik.receiptsnap.R
 import com.pratik.receiptsnap.data.local.UserPreferences
 import com.pratik.receiptsnap.databinding.FragmentScanBinding
-import com.pratik.receiptsnap.presentation.organize.state.UploadState
-import com.pratik.receiptsnap.presentation.organize.OrganizeViewModel
+import com.pratik.receiptsnap.presentation.scan.state.UploadState
 import com.pratik.receiptsnap.utils.CameraUtils
 import com.pratik.receiptsnap.utils.FileFolderPickerUtils
-import com.pratik.receiptsnap.utils.ShareUtils
 import dagger.hilt.android.AndroidEntryPoint
 import java.io.File
 
@@ -35,7 +33,7 @@ class ScanFragment : Fragment() {
 
     private var _binding: FragmentScanBinding? = null
     private val binding get() = _binding!!
-    private val viewmodel: OrganizeViewModel by viewModels()
+    private val viewmodel: ScanViewModel by viewModels()
     private val userPrefs: UserPreferences by lazy {
         UserPreferences(requireContext())
     }
@@ -53,26 +51,20 @@ class ScanFragment : Fragment() {
 
 
         // Observe upload state for UI feedback
-        viewmodel.uploadState.observe(viewLifecycleOwner) { state ->
-            when (state) {
-                is UploadState.Loading -> {
-                    binding.btnUpload.isEnabled = false
-                }
+        viewmodel.uploadState.observe(viewLifecycleOwner) { event ->
+            val state = event.getContentIfNotHandled() ?: return@observe
 
+            when (state) {
+                UploadState.Loading -> binding.btnUpload.isEnabled = false
                 is UploadState.Success -> {
                     binding.btnUpload.isEnabled = true
-
-                    Toast.makeText(
-                        requireContext(),
-                        "File uploaded successfully",
-                        Toast.LENGTH_SHORT
-                    ).show()
+                    Toast.makeText(requireContext(), "File uploaded successfully", Toast.LENGTH_SHORT).show()
                 }
-
                 is UploadState.Error -> {
                     binding.btnUpload.isEnabled = true
                     Toast.makeText(requireContext(), state.message, Toast.LENGTH_LONG).show()
                 }
+                UploadState.Idle -> Unit
             }
         }
 
@@ -87,7 +79,6 @@ class ScanFragment : Fragment() {
                 showActionBottomSheet()
             }
         }
-
     }
 
     private fun showActionBottomSheet() {
