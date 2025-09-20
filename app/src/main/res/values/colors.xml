@@ -7,11 +7,26 @@
     <color name="off_white">#E1FFFFFF</color>
     <color name="text_color">#363636</color>
     <color name="grey">#E1E0E0</color>
+    <color name="dark_grey">#3D3D3D</color>
+    <color name="light_grey">#E0E0E0</color>
     <color name="light_green">#FCB5DFBB</color>
     <color name="primary_text">#2A0F3A</color>
     <color name="secondary_text">#6B4F7A</color>
     <color name="hint_text">#CFC7CF</color>
     <color name="screen_bg">#f2f2f2</color>
     <color name="shimmer_color">#c7c7c7</color>
+
     <color name="red_200">#EF9A9A</color>
+    <color name="pink_200">#F48FB1</color>
+    <color name="purple_200">#CE93D8</color>
+    <color name="deep_purple_200">#9FA8DA</color>
+    <color name="light_blue_200">#81D4FA</color>
+    <color name="cyan_200">#80CBC4</color>
+    <color name="teal_200">#E6EE9C</color>
+    <color name="lime_200">#FFF59D</color>
+    <color name="yellow_200">#FFE082</color>
+    <color name="amber_200">#FFCC80</color>
+    <color name="deep_orange_200">#FFAB91</color>
+    <color name="brown_200">#BCAAA4</color>
+    <color name="blue_grey_200">#B0BEC5</color>
 </resources>

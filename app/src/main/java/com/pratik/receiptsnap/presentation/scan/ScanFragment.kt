@@ -103,7 +103,7 @@ class ScanFragment : Fragment() {
 
         folderButton?.setOnClickListener {
             // Handle folder button click
-            findNavController().navigate(R.id.action_scanFragment_to_signupFragment)
+            //findNavController().navigate(R.id.action_scanFragment_to_signupFragment)
             Toast.makeText(requireContext(), "Folder button clicked", Toast.LENGTH_SHORT).show()
             dialog.dismiss()
         }

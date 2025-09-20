@@ -9,8 +9,6 @@
     android:fitsSystemWindows="true"
     android:layout_marginBottom="?attr/actionBarSize"
     android:background="@color/white"
-    android:layout_marginStart="@dimen/_2sdp"
-    android:layout_marginEnd="@dimen/_2sdp"
     tools:context=".presentation.organize.OrganizeFragment">
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout

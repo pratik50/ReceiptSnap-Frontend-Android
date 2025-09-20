@@ -124,8 +124,8 @@ class FilesFragment : Fragment() {
                 showFileOptionsBottomSheet(fileId)
             }
             override fun onFileClick(fileUrl: String, mimeType: String) {
-                val action = OrganizeFragmentDirections
-                    .actionOrganizeFragmentToFilePreviewFragment(fileUrl, mimeType)
+                val action = FilesFragmentDirections
+                    .actionFilesFragmentToFilePreviewFragment(fileUrl, mimeType)
                 findNavController().navigate(action)
             }
         }

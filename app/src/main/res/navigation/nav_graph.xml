@@ -96,6 +96,9 @@
         <action
             android:id="@+id/action_organizeFragment_to_filesFragment"
             app:destination="@id/filesFragment" />
+        <action
+            android:id="@+id/action_organizeFragment_to_filePreviewFragment2"
+            app:destination="@id/filePreviewFragment" />
     </fragment>
 
     <!-- Settings -->
@@ -113,6 +116,9 @@
         <action
             android:id="@+id/action_settingsFragment_to_filesFragment"
             app:destination="@id/filesFragment" />
+        <action
+            android:id="@+id/action_settingsFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
     </fragment>
 
     <!-- File Preview -->
@@ -133,6 +139,9 @@
         <action
             android:id="@+id/action_filePreviewFragment_to_filesFragment"
             app:destination="@id/filesFragment" />
+        <action
+            android:id="@+id/action_filePreviewFragment_to_organizeFragment2"
+            app:destination="@id/organizeFragment" />
     </fragment>
 
     <fragment

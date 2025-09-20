@@ -12,7 +12,7 @@
 
     <item
         android:id="@+id/filesFragment"
-        android:icon="@drawable/icon_folder"
+        android:icon="@drawable/icon_files"
         android:title="Files" />
 
     <item

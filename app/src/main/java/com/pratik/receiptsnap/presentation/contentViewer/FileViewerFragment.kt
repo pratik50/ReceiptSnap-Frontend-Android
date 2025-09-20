@@ -32,16 +32,16 @@ class FileViewerFragment : Fragment() {
         val fileUrl = arguments?.getString("fileUrl")!!
         val mimeType = arguments?.getString("mimeType")!!
 
-        val fileFullUrl = "${NetworkConstants.BASE_URL}$fileUrl"
+        //val fileFullUrl = "${NetworkConstants.BASE_URL}$fileUrl"
 
         if (mimeType.startsWith("image/")) {
             binding.imageView.visibility = View.VISIBLE
-            Glide.with(this).load(fileFullUrl).into(binding.imageView)
+            Glide.with(this).load(fileUrl).into(binding.imageView)
 
         } else if (mimeType == "application/pdf") {
             binding.pdfView.visibility = View.VISIBLE
 
-            val encodedUrl = URLEncoder.encode(fileFullUrl, "UTF-8")
+            val encodedUrl = URLEncoder.encode(fileUrl, "UTF-8")
             val requiredFullUrl = "${NetworkConstants.BASE_URL}/pdfjs/pdf_preview_loader.html?file=$encodedUrl"
 
             binding.pdfView.apply {

@@ -41,11 +41,4 @@ class ScanViewModel @Inject constructor(
         }
     }
 
-    //  Logout by clearing token
-    fun logout(userPrefs: UserPreferences) {
-        viewModelScope.launch {
-            userPrefs.clearToken()
-        }
-    }
-
 }

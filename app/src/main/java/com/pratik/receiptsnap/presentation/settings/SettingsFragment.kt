@@ -5,29 +5,23 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.pratik.receiptsnap.R
+import com.pratik.receiptsnap.data.local.UserPreferences
+import com.pratik.receiptsnap.databinding.FragmentOrganizeBinding
+import com.pratik.receiptsnap.databinding.FragmentSettingsBinding
+import dagger.hilt.android.AndroidEntryPoint
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [SettingsFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
+@AndroidEntryPoint
 class SettingsFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
+    private var _binding: FragmentSettingsBinding? = null
+    private val binding get() = _binding!!
+    private val viewModel: SettingsViewModel by viewModels()
+    private val userPrefs: UserPreferences by lazy {
+        UserPreferences(requireContext())
     }
 
     override fun onCreateView(
@@ -35,26 +29,111 @@ class SettingsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_settings, container, false)
+        _binding = FragmentSettingsBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment SettingsFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            SettingsFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        binding.apply {
+            tvLogout.setOnClickListener {
+                viewModel.logout(userPrefs)
+                findNavController().navigate(R.id.action_settingsFragment_to_loginFragment)
+                Toast.makeText(requireContext(), "Logged Out", Toast.LENGTH_SHORT).show()
+            }
+
+            switchPreferences.setOnCheckedChangeListener { buttonView, isChecked ->
+
+                if (isChecked) {
+                    Toast.makeText(requireContext(), "Scan Quality (High)", Toast.LENGTH_SHORT)
+                        .show()
+                } else {
+                    Toast.makeText(requireContext(), "Scan Quality (Low)", Toast.LENGTH_SHORT)
+                        .show()
                 }
             }
+
+            switchHelp.setOnCheckedChangeListener { buttonView, isChecked ->
+                if (isChecked) {
+                    Toast.makeText(requireContext(), "Help & Support On", Toast.LENGTH_SHORT).show()
+                } else {
+                    Toast.makeText(requireContext(), "Help & Support Off", Toast.LENGTH_SHORT)
+                        .show()
+                }
+            }
+
+            switchNotifications.setOnCheckedChangeListener { buttonView, isChecked ->
+                if (isChecked) {
+                    Toast.makeText(requireContext(), "Notifications On", Toast.LENGTH_SHORT).show()
+                } else {
+                    Toast.makeText(requireContext(), "Notifications Off", Toast.LENGTH_SHORT).show()
+                    switchOverWifiONly.isChecked = false
+                    switchNewFeatureNotification.isChecked = false
+                }
+            }
+
+            switchOverWifiONly.setOnCheckedChangeListener { buttonView, isChecked ->
+                if (switchNotifications.isChecked) {
+                    if (isChecked) {
+                        Toast.makeText(
+                            requireContext(),
+                            "Sync Over Wi--Fi Only On",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    } else {
+                        Toast.makeText(
+                            requireContext(),
+                            "Sync Over Wi-Fi Only Off",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                } else {
+                    if (isChecked) { // if the user tried to turn it ON when notifications are OFF
+                        Toast.makeText(
+                            requireContext(),
+                            "Enable Notifications first to use this feature.",
+                            Toast.LENGTH_LONG
+                        ).show()
+                        switchOverWifiONly.isChecked = false // Force it back off
+                    }
+                }
+            }
+
+            switchNewFeatureNotification.setOnCheckedChangeListener { buttonView, isChecked ->
+                if (switchNotifications.isChecked) {
+                    // Handle new feature notification preference
+                    if (isChecked) {
+                        Toast.makeText(
+                            requireContext(),
+                            "New Feature Notifications On",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    } else {
+                        Toast.makeText(
+                            requireContext(),
+                            "New Feature Notifications Off",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                } else {
+                    // If main notifications are off, this should also be off
+                    if (isChecked) { // if the user tried to turn it ON when notifications are OFF
+                        Toast.makeText(
+                            requireContext(),
+                            "Enable Notifications first to use this feature.",
+                            Toast.LENGTH_LONG
+                        ).show()
+                        switchNewFeatureNotification.isChecked = false // Force it back off
+                    }
+                }
+            }
+        }
     }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
 }
