@@ -22,11 +22,10 @@ class ItemFolderModel(
     override fun bind(holder: Holder) {
         holder.folderName.text = folderName.replace("_", "\n")
 
-        Log.d("bgcolour", "bind: $bgColor")
         val colorInt = ContextCompat.getColor(holder.rootView.context, bgColor)
         holder.contentLayout.setBackgroundColor(colorInt)
         holder.rootView.setOnClickListener {
-            //clickListener?.onFileClick(folderId)
+            clickListener?.onFolderClick(folderId, folderName)
         }
     }
 

@@ -99,6 +99,9 @@
         <action
             android:id="@+id/action_organizeFragment_to_filePreviewFragment2"
             app:destination="@id/filePreviewFragment" />
+        <action
+            android:id="@+id/action_organizeFragment_to_foldersFilesFragment"
+            app:destination="@id/foldersFilesFragment" />
     </fragment>
 
     <!-- Settings -->
@@ -142,6 +145,9 @@
         <action
             android:id="@+id/action_filePreviewFragment_to_organizeFragment2"
             app:destination="@id/organizeFragment" />
+        <action
+            android:id="@+id/action_filePreviewFragment_to_foldersFilesFragment"
+            app:destination="@id/foldersFilesFragment" />
     </fragment>
 
     <fragment
@@ -161,6 +167,25 @@
         <action
             android:id="@+id/action_filesFragment_to_filePreviewFragment"
             app:destination="@id/filePreviewFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/foldersFilesFragment"
+        android:name="com.pratik.receiptsnap.presentation.foldersFiles.FoldersFilesFragment"
+        android:label="Folders Files"
+        tools:layout="@layout/fragment_folders_files">
+        <argument
+            android:name="folderId"
+            app:argType="string" />
+        <argument
+            android:name="folderName"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_foldersFilesFragment_to_filePreviewFragment"
+            app:destination="@id/filePreviewFragment" />
+        <action
+            android:id="@+id/action_foldersFilesFragment_to_organizeFragment"
+            app:destination="@id/organizeFragment" />
     </fragment>
 
 

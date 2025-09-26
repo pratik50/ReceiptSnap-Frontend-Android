@@ -43,6 +43,9 @@ class FileAndFolderRepository @Inject constructor(
         }
     }
 
+    suspend fun getFoldersFiles(folderId: String): FilesAndFolderResponse {
+        return fileApi.getFoldersFiles(folderId)
+    }
 
     // TODO: remove the complexity for this function and make it more readable
     suspend fun prepareFilePart(partName: String, fileUri: Uri): MultipartBody.Part =

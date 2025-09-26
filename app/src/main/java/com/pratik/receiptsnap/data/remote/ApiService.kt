@@ -38,4 +38,6 @@ interface FileApi {
     @DELETE("/api/files/{fileId}")
     suspend fun deleteFile(@Path("fileId") fileId: String)
 
+    @GET("/api/files/{folderId}/files")
+    suspend fun getFoldersFiles(@Path("folderId") folderId: String): FilesAndFolderResponse
 }

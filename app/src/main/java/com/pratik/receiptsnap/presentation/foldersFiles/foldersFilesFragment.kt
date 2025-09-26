@@ -1,36 +1,39 @@
-package com.pratik.receiptsnap.presentation.files
+package com.pratik.receiptsnap.presentation.foldersFiles
 
+import androidx.fragment.app.viewModels
 import android.os.Bundle
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.Toast
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.pratik.receiptsnap.R
 import com.pratik.receiptsnap.databinding.FragmentFilesBinding
-import com.pratik.receiptsnap.presentation.organize.OrganizeFragmentDirections
+import com.pratik.receiptsnap.databinding.FragmentFoldersFilesBinding
+import com.pratik.receiptsnap.presentation.files.FilesEpoxyController
+import com.pratik.receiptsnap.presentation.files.FilesFragmentDirections
+import com.pratik.receiptsnap.presentation.files.FilesViewModel
 import com.pratik.receiptsnap.presentation.files.state.FileItemClickListener
 import dagger.hilt.android.AndroidEntryPoint
-import kotlin.getValue
 
 @AndroidEntryPoint
-class FilesFragment : Fragment() {
+class FoldersFilesFragment : Fragment() {
 
-    private var _binding: FragmentFilesBinding?= null
+    private var _binding: FragmentFoldersFilesBinding?= null
     private val binding get() = _binding!!
-    private val viewmodel: FilesViewModel by viewModels()
+    private val viewmodel: FoldersFilesViewModel by viewModels()
     private lateinit var epoxyController: FilesEpoxyController
+    private val args: FoldersFilesFragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        _binding = FragmentFilesBinding.inflate(inflater, container, false)
+    ): View {
+        _binding = FragmentFoldersFilesBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -43,7 +46,9 @@ class FilesFragment : Fragment() {
 
         // Start loading shimmer
         showLoadingState()
-        viewmodel.loadFiles()
+
+        val folderId = args.folderId
+        viewmodel.loadFiles(folderId)
 
         viewmodel.files.observe(viewLifecycleOwner) { response ->
             binding.swipeRefreshLayout.isRefreshing = false
@@ -58,63 +63,13 @@ class FilesFragment : Fragment() {
 
         binding.apply {
 
-//            // Open Navigation drawer
-//            searchBar.setNavigationOnClickListener{ view->
-//                drawerLayout.open()
-//            }
+            folderName.text = args.folderName
 
             // Swipe to refresh listener
             swipeRefreshLayout.setOnRefreshListener {
-                viewmodel.loadFiles()
+                viewmodel.loadFiles(folderId)
             }
 
-            // Navigation drawer item listener
-//            navigationView.setNavigationItemSelectedListener { menuItem->
-//
-//                menuItem.isChecked = true
-//
-//                when (menuItem.itemId){
-//                    R.id.action_recent -> {
-//                        drawerLayout.close()
-//                        Toast.makeText(requireContext(), "Recent", Toast.LENGTH_SHORT).show()
-//                        true
-//                    }
-//                    R.id.action_offline -> {
-//                        drawerLayout.close()
-//                        Toast.makeText(requireContext(), "Offline", Toast.LENGTH_SHORT).show()
-//                        true
-//                    }
-//                    R.id.action_trash -> {
-//                        drawerLayout.close()
-//                        Toast.makeText(requireContext(), "Bin", Toast.LENGTH_SHORT).show()
-//                        true
-//                    }
-//                    R.id.action_settings -> {
-//                        drawerLayout.close()
-//                        Toast.makeText(requireContext(), "Settings", Toast.LENGTH_SHORT).show()
-//                        true
-//                    }
-//                    R.id.action_help -> {
-//                        drawerLayout.close()
-//                        Toast.makeText(requireContext(), "Help", Toast.LENGTH_SHORT).show()
-//                        true
-//                    }
-//                    R.id.action_logout -> {
-//                        drawerLayout.close()
-//                        viewmodel.logout(userPrefs)
-//
-//                        val navOptions = NavOptions.Builder()
-//                            .setPopUpTo(R.id.organizeFragment, true)
-//                            .build()
-//                        findNavController().navigate(R.id.action_organizeFragment_to_loginFragment, null, navOptions)
-//
-//                        Toast.makeText(requireContext(), "Logged out", Toast.LENGTH_SHORT).show()
-//                    }
-//                }
-//
-//                menuItem.isChecked = false
-//                return@setNavigationItemSelectedListener true
-//            }
 
         }
 
@@ -124,8 +79,8 @@ class FilesFragment : Fragment() {
                 showFileOptionsBottomSheet(fileId)
             }
             override fun onFileClick(fileUrl: String, mimeType: String) {
-                val action = FilesFragmentDirections
-                    .actionFilesFragmentToFilePreviewFragment(fileUrl, mimeType)
+                val action = FoldersFilesFragmentDirections
+                    .actionFoldersFilesFragmentToFilePreviewFragment(fileUrl, mimeType)
                 findNavController().navigate(action)
             }
 

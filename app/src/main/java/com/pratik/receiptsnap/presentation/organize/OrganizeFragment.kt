@@ -124,15 +124,23 @@ class OrganizeFragment : Fragment() {
 
         //File menu listener & controller
         epoxyController.clickListener = object : FileItemClickListener {
-            override fun onMoreClick(fileId: String) {
-                showFileOptionsBottomSheet(fileId)
-            }
-            override fun onFileClick(fileUrl: String, mimeType: String) {
+
+            override fun onFolderClick(folderId: String, folderName: String) {
                 val action = OrganizeFragmentDirections
-                    .actionOrganizeFragmentToFilePreviewFragment(fileUrl, mimeType)
+                    .actionOrganizeFragmentToFoldersFilesFragment(folderId, folderName)
                 findNavController().navigate(action)
             }
+
+            override fun onMoreClick(fileId: String) {
+                TODO("Not yet implemented")
+            }
+
+            override fun onFileClick(fileUrl: String, mimeType: String) {
+                TODO("Not yet implemented")
+            }
+
         }
+
 
         // Delete file Listener
         viewmodel.deleteState.observe(viewLifecycleOwner) { event ->
