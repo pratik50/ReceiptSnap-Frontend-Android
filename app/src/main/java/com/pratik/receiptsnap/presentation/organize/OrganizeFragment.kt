@@ -1,19 +1,26 @@
 package com.pratik.receiptsnap.presentation.organize
 
+import android.R.attr.text
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
+import android.widget.SearchView
 import android.widget.Toast
+import androidx.activity.addCallback
+import androidx.compose.animation.core.TransitionState
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.pratik.receiptsnap.HomeActivity
 import com.pratik.receiptsnap.R
 import com.pratik.receiptsnap.databinding.FragmentOrganizeBinding
+import com.pratik.receiptsnap.model.FolderItem
 import com.pratik.receiptsnap.presentation.files.state.FileItemClickListener
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -24,6 +31,7 @@ class OrganizeFragment : Fragment() {
     private val binding get() = _binding!!
     private val viewmodel: OrganizeViewModel by viewModels()
     private lateinit var epoxyController: OrganizeEpoxyController
+    private var allFolders: List<FolderItem> = emptyList()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,10 +46,30 @@ class OrganizeFragment : Fragment() {
 
         //Epoxy Initialization
         epoxyController = OrganizeEpoxyController()
-        val layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
-        layoutManager.gapStrategy = StaggeredGridLayoutManager.GAP_HANDLING_MOVE_ITEMS_BETWEEN_SPANS
-        binding.epoxyRecyclerView.layoutManager = layoutManager
+
+        // Main list
+        val mainLayoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+        mainLayoutManager.gapStrategy = StaggeredGridLayoutManager.GAP_HANDLING_MOVE_ITEMS_BETWEEN_SPANS
+        binding.epoxyRecyclerView.layoutManager = mainLayoutManager
         binding.epoxyRecyclerView.setController(epoxyController)
+
+        // Search list
+        val searchLayoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+        searchLayoutManager.gapStrategy = StaggeredGridLayoutManager.GAP_HANDLING_MOVE_ITEMS_BETWEEN_SPANS
+        binding.searchRecyclerView.layoutManager = searchLayoutManager
+        binding.searchRecyclerView.setController(epoxyController)
+
+        // Link SearchBar + SearchView
+        binding.searchView.setupWithSearchBar(binding.searchBar)
+        // 🔥 Back press handling yahi likhna hai
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+            if (binding.searchView.isShowing) {
+                binding.searchView.hide()
+            } else {
+                isEnabled = false
+                requireActivity().onBackPressed()
+            }
+        }
 
         // Start loading shimmer
         showLoadingState()
@@ -56,6 +84,7 @@ class OrganizeFragment : Fragment() {
                 showEmptyState()
             } else {
                 epoxyController.folders = response.folders
+                allFolders = response.folders
                 showDataState()
             }
         }
@@ -120,6 +149,33 @@ class OrganizeFragment : Fragment() {
 //                return@setNavigationItemSelectedListener true
 //            }
 
+
+            searchView.addTransitionListener { _, _, newState ->
+                val bottomNav = requireActivity().findViewById<View>(R.id.bottom_Bar) // id check kar!
+
+                when (newState) {
+                    com.google.android.material.search.SearchView.TransitionState.SHOWING,
+                    com.google.android.material.search.SearchView.TransitionState.SHOWN -> {
+                        bottomNav.visibility = View.GONE
+                    }
+                    com.google.android.material.search.SearchView.TransitionState.HIDING,
+                    com.google.android.material.search.SearchView.TransitionState.HIDDEN -> {
+                        bottomNav.visibility = View.VISIBLE
+                        epoxyController.folders = allFolders // restore folders
+                    }
+                }
+            }
+
+            searchView.editText.setOnEditorActionListener { v, _, _ ->
+                val query = v.text.toString()
+                filterList(query)
+                false
+            }
+
+            searchView.editText.addTextChangedListener { text ->
+                filterList(text.toString())
+            }
+
         }
 
         //File menu listener & controller
@@ -152,6 +208,17 @@ class OrganizeFragment : Fragment() {
                 Toast.makeText(requireContext(), "Failed to delete file", Toast.LENGTH_SHORT).show()
             }
         }
+    }
+
+    private fun filterList(query: String) {
+        val filteredList = if (query.isEmpty()) {
+            emptyList<FolderItem>() // original list
+        } else {
+            allFolders.filter {
+                it.name.contains(query, ignoreCase = true)
+            }
+        }
+        epoxyController.folders = filteredList
     }
 
     private fun showFileOptionsBottomSheet(fileId: String) {
@@ -207,5 +274,6 @@ class OrganizeFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
+
 
 }

@@ -7,7 +7,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    android:layout_marginBottom="?attr/actionBarSize"
     android:background="@color/white"
     tools:context=".presentation.organize.OrganizeFragment">
 
@@ -41,9 +40,18 @@
             android:layout_height="match_parent"
             android:hint="Search here.."
             android:fitsSystemWindows="true"
-            app:layout_insetEdge="none"
             app:backgroundTint="@color/white"
-            app:layout_anchor="@id/search_bar" />
+            app:useDrawerArrowDrawable="false"
+            app:layout_anchor="@id/search_bar">
+
+            <com.airbnb.epoxy.EpoxyRecyclerView
+                android:id="@+id/searchRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:clipToPadding="false"
+                tools:listitem="@layout/item_folder" />
+
+        </com.google.android.material.search.SearchView>
 
         <!-- Epoxy RecyclerView -->
         <androidx.constraintlayout.widget.ConstraintLayout

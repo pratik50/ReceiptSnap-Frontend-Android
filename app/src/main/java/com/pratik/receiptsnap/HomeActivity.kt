@@ -90,4 +90,9 @@ class HomeActivity : AppCompatActivity() {
         }
     }
 
+    // Helper Function to set bottom nav visibility
+    fun setBottomNavVisibility(visible: Boolean) {
+        val bottomNav = findViewById<View>(R.id.bottom_Bar)
+        bottomNav.visibility = if (visible) View.VISIBLE else View.GONE
+    }
 }
