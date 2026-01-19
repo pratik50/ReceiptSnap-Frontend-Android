@@ -61,7 +61,7 @@ class OrganizeFragment : Fragment() {
 
         // Link SearchBar + SearchView
         binding.searchView.setupWithSearchBar(binding.searchBar)
-        // 🔥 Back press handling yahi likhna hai
+
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
             if (binding.searchView.isShowing) {
                 binding.searchView.hide()

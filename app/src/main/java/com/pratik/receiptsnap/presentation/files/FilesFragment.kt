@@ -6,12 +6,18 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.Toast
+import androidx.activity.addCallback
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.pratik.receiptsnap.R
 import com.pratik.receiptsnap.databinding.FragmentFilesBinding
+import com.pratik.receiptsnap.model.FileItem
+import com.pratik.receiptsnap.model.FolderItem
 import com.pratik.receiptsnap.presentation.organize.OrganizeFragmentDirections
 import com.pratik.receiptsnap.presentation.files.state.FileItemClickListener
 import dagger.hilt.android.AndroidEntryPoint
@@ -24,6 +30,7 @@ class FilesFragment : Fragment() {
     private val binding get() = _binding!!
     private val viewmodel: FilesViewModel by viewModels()
     private lateinit var epoxyController: FilesEpoxyController
+    private var allFiles: List<FileItem> = emptyList()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -41,6 +48,22 @@ class FilesFragment : Fragment() {
         epoxyController = FilesEpoxyController()
         binding.epoxyRecyclerView.setController(epoxyController)
 
+        // Search list
+        binding.searchRecyclerView.layoutManager = LinearLayoutManager(requireContext())
+        binding.searchRecyclerView.setController(epoxyController)
+
+        // Link SearchBar + SearchView
+        binding.searchView.setupWithSearchBar(binding.searchBar)
+
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+            if (binding.searchView.isShowing) {
+                binding.searchView.hide()
+            } else {
+                isEnabled = false
+                requireActivity().onBackPressed()
+            }
+        }
+
         // Start loading shimmer
         showLoadingState()
         viewmodel.loadFiles()
@@ -52,6 +75,7 @@ class FilesFragment : Fragment() {
                 showEmptyState()
             } else {
                 epoxyController.files = response.files
+                allFiles = response.files
                 showDataState()
             }
         }
@@ -116,7 +140,34 @@ class FilesFragment : Fragment() {
 //                return@setNavigationItemSelectedListener true
 //            }
 
+            searchView.addTransitionListener { _, _, newState ->
+                val bottomNav = requireActivity().findViewById<View>(R.id.bottom_Bar) // id check kar!
+
+                when (newState) {
+                    com.google.android.material.search.SearchView.TransitionState.SHOWING,
+                    com.google.android.material.search.SearchView.TransitionState.SHOWN -> {
+                        bottomNav.visibility = View.GONE
+                    }
+                    com.google.android.material.search.SearchView.TransitionState.HIDING,
+                    com.google.android.material.search.SearchView.TransitionState.HIDDEN -> {
+                        bottomNav.visibility = View.VISIBLE
+                        epoxyController.files = allFiles // restore folders
+                    }
+                }
+            }
+
+            searchView.editText.setOnEditorActionListener { v, _, _ ->
+                val query = v.text.toString()
+                filterList(query)
+                false
+            }
+
+            searchView.editText.addTextChangedListener { text ->
+                filterList(text.toString())
+            }
+
         }
+
 
         //File menu listener & controller
         epoxyController.clickListener = object : FileItemClickListener {
@@ -144,6 +195,17 @@ class FilesFragment : Fragment() {
                 Toast.makeText(requireContext(), "Failed to delete file", Toast.LENGTH_SHORT).show()
             }
         }
+    }
+
+    private fun filterList(query: String) {
+        val filteredList = if (query.isEmpty()) {
+            emptyList<FileItem>()
+        } else {
+            allFiles.filter {
+                it.name.contains(query, ignoreCase = true)
+            }
+        }
+        epoxyController.files = filteredList
     }
 
     private fun showFileOptionsBottomSheet(fileId: String) {

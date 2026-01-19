@@ -54,6 +54,10 @@ class SettingsFragment : Fragment() {
                 }
             }
 
+            sectionProfile.setOnClickListener {
+                findNavController().navigate(R.id.action_settingsFragment_to_changePasswordFragment)
+            }
+
             switchHelp.setOnCheckedChangeListener { buttonView, isChecked ->
                 if (isChecked) {
                     Toast.makeText(requireContext(), "Help & Support On", Toast.LENGTH_SHORT).show()

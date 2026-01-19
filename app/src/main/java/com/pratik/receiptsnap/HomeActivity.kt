@@ -53,7 +53,7 @@ class HomeActivity : AppCompatActivity() {
 
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
-            val hideOn = setOf(R.id.splashFragment, R.id.loginFragment, R.id.signupFragment)
+            val hideOn = setOf(R.id.splashFragment, R.id.loginFragment, R.id.signupFragment, R.id.changePasswordFragment)
             if (destination.id in hideOn) {
                 bottomBar.visibility = View.GONE
             } else {
@@ -88,11 +88,5 @@ class HomeActivity : AppCompatActivity() {
                 }
             }
         }
-    }
-
-    // Helper Function to set bottom nav visibility
-    fun setBottomNavVisibility(visible: Boolean) {
-        val bottomNav = findViewById<View>(R.id.bottom_Bar)
-        bottomNav.visibility = if (visible) View.VISIBLE else View.GONE
     }
 }
